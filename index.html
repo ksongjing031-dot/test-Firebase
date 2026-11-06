@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>無限階段</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================== -->
+  <!-- ホーム画面                      -->
+  <!-- ============================== -->
+  <main id="home" class="screen active">
+    <h1 class="logo">無限階段<span>INFINITE STAIRS</span></h1>
+
+    <!-- 遊び方 -->
+    <section class="card">
+      <h2>あそびかた</h2>
+      <ul class="howto">
+        <li><kbd>←</kbd> 左上の段へ登る ／ <kbd>→</kbd> 右上の段へ登る</li>
+        <li>次の段がない方向に進むと<b>落下してゲームオーバー</b></li>
+        <li>上のゲージは時間。登ると回復、0になっても落下！</li>
+        <li>高く登るほど時間の減りが速く、曲がり角も増えていく</li>
+      </ul>
+    </section>
+
+    <!-- アカウント -->
+    <section class="card">
+      <h2>アカウント</h2>
+
+      <!-- ログアウト中に表示 -->
+      <div id="loggedOut">
+        <div class="tabs">
+          <button class="tab active" data-tab="signupForm">新規登録</button>
+          <button class="tab" data-tab="loginForm">ログイン</button>
+        </div>
+
+        <form id="signupForm" class="auth-form">
+          <input id="signupName" type="text" placeholder="ニックネーム（ランキングに表示・12文字まで）" maxlength="12" required>
+          <input id="signupEmail" type="email" placeholder="メールアドレス" autocomplete="email" required>
+          <input id="signupPassword" type="password" placeholder="パスワード（6文字以上）" minlength="6" autocomplete="new-password" required>
+          <button type="submit" class="btn">登録する</button>
+        </form>
+
+        <form id="loginForm" class="auth-form" hidden>
+          <input id="loginEmail" type="email" placeholder="メールアドレス" autocomplete="email" required>
+          <input id="loginPassword" type="password" placeholder="パスワード" autocomplete="current-password" required>
+          <button type="submit" class="btn">ログイン</button>
+        </form>
+      </div>
+
+      <!-- ログイン中に表示 -->
+      <div id="loggedIn" hidden>
+        <p class="welcome"><b id="userName"></b> さんでログイン中</p>
+        <button id="logoutBtn" class="btn ghost">ログアウト</button>
+      </div>
+
+      <p id="authMsg" class="msg"></p>
+    </section>
+
+    <button id="startBtn" class="btn big">ゲームスタート</button>
+    <p class="note" id="guestNote">※ ログインしないで遊ぶとスコアはランキングに残りません</p>
+
+    <!-- ランキング -->
+    <section class="card">
+      <h2>ランキング TOP10</h2>
+      <ol id="rankingList" class="ranking"><li class="empty">読み込み中…</li></ol>
+    </section>
+  </main>
+
+  <!-- ============================== -->
+  <!-- ゲーム画面                      -->
+  <!-- ============================== -->
+  <div id="game" class="screen">
+    <div class="game-wrap">
+      <canvas id="canvas"></canvas>
+
+      <!-- スマホ用ボタン（PCでも押せます） -->
+      <div class="touch">
+        <button class="touch-btn" data-dir="-1">←</button>
+        <button class="touch-btn" data-dir="1">→</button>
+      </div>
+
+      <!-- ゲームオーバー表示 -->
+      <div id="overlay" class="overlay" hidden>
+        <div class="overlay-box">
+          <p id="reason" class="reason"></p>
+          <h2>GAME OVER</h2>
+          <p class="final">スコア <span id="finalScore">0</span></p>
+          <p id="saveMsg" class="msg"></p>
+          <div class="overlay-btns">
+            <button id="retryBtn" class="btn">もう一度 (Enter)</button>
+            <button id="homeBtn" class="btn ghost">ホームへ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- type="module" にすると import が使えます -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>
